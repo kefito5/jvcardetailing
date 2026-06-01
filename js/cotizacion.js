@@ -12,7 +12,7 @@
   loader.setAttribute('role', 'status');
 
   /* Detectar ruta del logo según profundidad de la página */
-  const depth  = location.pathname.split('/').filter(Boolean).length;
+  const depth = location.pathname.split('/').filter(Boolean).length;
   const prefix = depth >= 2 ? '../' : '';
   const logoSrc = `${prefix}logo/logo.png`;
 
@@ -39,52 +39,52 @@
       <span></span><span></span><span></span>
     </div>
   `;
-/* =======================================
-   FAVICON ANIMADO
-   Pegar después del loader en script.js
-======================================= */
-(function initFaviconAnimation() {
+  /* =======================================
+     FAVICON ANIMADO
+     Pegar después del loader en script.js
+  ======================================= */
+  (function initFaviconAnimation() {
 
-  const link = document.querySelector("link[rel='shortcut icon']")
-            || document.querySelector("link[rel='icon']");
-  if (!link) return;
+    const link = document.querySelector("link[rel='shortcut icon']")
+      || document.querySelector("link[rel='icon']");
+    if (!link) return;
 
-  /* Detectar ruta según profundidad */
-  const depth  = location.pathname.split('/').filter(Boolean).length;
-  const prefix = depth >= 2 ? '../' : '';
+    /* Detectar ruta según profundidad */
+    const depth = location.pathname.split('/').filter(Boolean).length;
+    const prefix = depth >= 2 ? '../' : '';
 
-  const canvas = document.createElement('canvas');
-  canvas.width  = 32;
-  canvas.height = 32;
-  const ctx = canvas.getContext('2d');
+    const canvas = document.createElement('canvas');
+    canvas.width = 32;
+    canvas.height = 32;
+    const ctx = canvas.getContext('2d');
 
-  const img = new Image();
-  img.src = `${prefix}logo/logo.png`;
+    const img = new Image();
+    img.src = `${prefix}logo/logo.png`;
 
-  img.onload = () => {
-    let frame = 0;
+    img.onload = () => {
+      let frame = 0;
 
-    setInterval(() => {
-      ctx.clearRect(0, 0, 32, 32);
+      setInterval(() => {
+        ctx.clearRect(0, 0, 32, 32);
 
-      /* Logo base */
-      ctx.drawImage(img, 0, 0, 32, 32);
+        /* Logo base */
+        ctx.drawImage(img, 0, 0, 32, 32);
 
-      /* Pulso rojo alterno */
-      if (Math.floor(frame / 20) % 2 === 0) {
-        ctx.beginPath();
-        ctx.arc(16, 16, 15, 0, Math.PI * 2);
-        ctx.strokeStyle = 'rgba(192, 57, 43, 0.85)';
-        ctx.lineWidth = 2.5;
-        ctx.stroke();
-      }
+        /* Pulso rojo alterno */
+        if (Math.floor(frame / 20) % 2 === 0) {
+          ctx.beginPath();
+          ctx.arc(16, 16, 15, 0, Math.PI * 2);
+          ctx.strokeStyle = 'rgba(192, 57, 43, 0.85)';
+          ctx.lineWidth = 2.5;
+          ctx.stroke();
+        }
 
-      link.href = canvas.toDataURL('image/png');
-      frame++;
-    }, 80);
-  };
+        link.href = canvas.toDataURL('image/png');
+        frame++;
+      }, 80);
+    };
 
-})();
+  })();
   /* Insertar antes que todo lo demás */
   document.documentElement.prepend(loader);
 
@@ -97,8 +97,8 @@
     interval = setInterval(() => {
       /* Avance rápido al inicio, más lento al final */
       const step = progress < 60 ? Math.random() * 14 + 6
-                 : progress < 85 ? Math.random() * 6  + 2
-                 :                 Math.random() * 2  + 0.5;
+        : progress < 85 ? Math.random() * 6 + 2
+          : Math.random() * 2 + 0.5;
 
       progress = Math.min(progress + step, 95);
       if (bar) bar.style.width = progress + '%';
@@ -184,10 +184,10 @@ function initParticles() {
       for (let j = i + 1; j < particles.length; j++) {
         const dx = particles[i].x - particles[j].x;
         const dy = particles[i].y - particles[j].y;
-        const dist = Math.sqrt(dx*dx + dy*dy);
+        const dist = Math.sqrt(dx * dx + dy * dy);
         if (dist < config.connectDist) {
           ctx.beginPath();
-          ctx.strokeStyle = `rgba(${config.color}, ${(1-dist/config.connectDist)*0.3})`;
+          ctx.strokeStyle = `rgba(${config.color}, ${(1 - dist / config.connectDist) * 0.3})`;
           ctx.lineWidth = 0.6;
           ctx.moveTo(particles[i].x, particles[i].y);
           ctx.lineTo(particles[j].x, particles[j].y);
@@ -197,7 +197,7 @@ function initParticles() {
     }
     particles.forEach(p => {
       ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
       ctx.fillStyle = `rgba(${config.color}, 0.6)`;
       ctx.fill();
       p.x += p.vx; p.y += p.vy;
@@ -222,11 +222,11 @@ function initCustomCursor() {
   let mx = 0, my = 0, rx = 0, ry = 0;
   document.addEventListener('mousemove', e => {
     mx = e.clientX; my = e.clientY;
-    dot.style.left = mx+'px'; dot.style.top = my+'px';
+    dot.style.left = mx + 'px'; dot.style.top = my + 'px';
   });
   (function animRing() {
-    rx += (mx-rx)*0.14; ry += (my-ry)*0.14;
-    ring.style.left = rx+'px'; ring.style.top = ry+'px';
+    rx += (mx - rx) * 0.14; ry += (my - ry) * 0.14;
+    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
     requestAnimationFrame(animRing);
   })();
   document.querySelectorAll('a, button, .check-item').forEach(el => {
@@ -273,7 +273,7 @@ function initScrollReveal() {
   els.forEach((el, i) => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(24px)';
-    el.style.transition = `opacity 0.7s ${i*0.05}s cubic-bezier(0.16,1,0.3,1), transform 0.7s ${i*0.05}s cubic-bezier(0.16,1,0.3,1)`;
+    el.style.transition = `opacity 0.7s ${i * 0.05}s cubic-bezier(0.16,1,0.3,1), transform 0.7s ${i * 0.05}s cubic-bezier(0.16,1,0.3,1)`;
   });
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
@@ -318,13 +318,13 @@ function initPreview() {
   ];
 
   function update() {
-    const nombre   = val('#nombre')   || '—';
+    const nombre = val('#nombre') || '—';
     const telefono = val('#telefono') || '—';
-    const marca    = val('#marca')    || '—';
-    const modelo   = val('#modelo')  || '—';
-    const anio     = val('#anio')    || '—';
-    const color    = val('#color')   || '—';
-    const notas    = val('#notas')   || '—';
+    const marca = val('#marca') || '—';
+    const modelo = val('#modelo') || '—';
+    const anio = val('#anio') || '—';
+    const color = val('#color') || '—';
+    const notas = val('#notas') || '—';
 
     const servicios = [...document.querySelectorAll('.check-item input:checked')]
       .map(cb => cb.value)
@@ -361,7 +361,7 @@ function val(sel) {
 }
 
 function esc(str) {
-  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
 /* ═══════════════════════════════════════
@@ -376,29 +376,29 @@ function initForm() {
 
     if (!validate()) return;
 
-    const nombre   = val('#nombre');
+    const nombre = val('#nombre');
     const telefono = val('#telefono');
-    const marca    = val('#marca');
-    const modelo   = val('#modelo');
-    const anio     = val('#anio');
-    const color    = val('#color');
-    const notas    = val('#notas') || 'Ninguna';
+    const marca = val('#marca');
+    const modelo = val('#modelo');
+    const anio = val('#anio');
+    const color = val('#color');
+    const notas = val('#notas') || 'Ninguna';
 
     const servicios = [...document.querySelectorAll('.check-item input:checked')]
       .map(cb => cb.value)
       .join(', ');
 
     const msg =
-      `🚗 *Solicitud de Cotización — JV Car Detailing*\n\n` +
-      `👤 *Nombre:* ${nombre}\n` +
-      `📞 *Teléfono:* ${telefono}\n\n` +
-      `🚘 *Vehículo:*\n` +
+      `*Solicitud de Cotizacion — JV Car Detailing*\n\n` +
+      `*Nombre:* ${nombre}\n` +
+      `*Telefono:* ${telefono}\n\n` +
+      `*Vehiculo:*\n` +
       `  • Marca: ${marca}\n` +
       `  • Modelo: ${modelo}\n` +
-      `  • Año: ${anio}\n` +
+      `  • Anio: ${anio}\n` +
       `  • Color: ${color}\n\n` +
-      `✅ *Servicios solicitados:*\n  • ${servicios.replace(/, /g, '\n  • ')}\n\n` +
-      `📝 *Notas:* ${notas}`;
+      `*Servicios solicitados:*\n  • ${servicios.replace(/, /g, '\n  • ')}\n\n` +
+      `*Notas:* ${notas}`;
 
     const encoded = encodeURIComponent(msg);
     window.open(`https://wa.me/50687944434?text=${encoded}`, '_blank');
@@ -449,7 +449,7 @@ document.addEventListener('click', e => {
   const ripple = document.createElement('span');
   const size = Math.max(rect.width, rect.height);
   ripple.style.cssText = `position:absolute;width:${size}px;height:${size}px;
-    left:${e.clientX-rect.left-size/2}px;top:${e.clientY-rect.top-size/2}px;
+    left:${e.clientX - rect.left - size / 2}px;top:${e.clientY - rect.top - size / 2}px;
     background:rgba(255,255,255,0.15);border-radius:50%;transform:scale(0);
     animation:ripple-anim 0.55s ease-out forwards;pointer-events:none;`;
   if (!document.querySelector('#ripple-style')) {
