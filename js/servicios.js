@@ -1,4 +1,101 @@
 /* =======================================
+   LOADER — 
+   
+======================================= */
+
+(function initLoader() {
+
+  /* ── 1. Crear el HTML del loader ── */
+  const loader = document.createElement('div');
+  loader.id = 'jv-loader';
+  loader.setAttribute('aria-label', 'Cargando JV Car Detailing');
+  loader.setAttribute('role', 'status');
+
+  /* Detectar ruta del logo según profundidad de la página */
+  const depth  = location.pathname.split('/').filter(Boolean).length;
+  const prefix = depth >= 2 ? '../' : '';
+  const logoSrc = `${prefix}logo/logo.png`;
+
+  loader.innerHTML = `
+    <div class="loader-logo-wrap">
+      <div class="loader-ring"></div>
+      <div class="loader-ring-2"></div>
+      <div class="loader-ring-3"></div>
+      <div class="loader-logo-box">
+        <img src="${logoSrc}" alt="JV Car Detailing">
+      </div>
+    </div>
+
+    <div class="loader-text">
+      <span class="loader-brand">JV Car Detailing</span>
+      <span class="loader-sub">Detallado Profesional</span>
+    </div>
+
+    <div class="loader-bar-wrap">
+      <div class="loader-bar" id="jv-loader-bar"></div>
+    </div>
+
+    <div class="loader-dots">
+      <span></span><span></span><span></span>
+    </div>
+  `;
+
+  /* Insertar antes que todo lo demás */
+  document.documentElement.prepend(loader);
+
+  /* ── 2. Animar la barra de progreso ── */
+  const bar = document.getElementById('jv-loader-bar');
+  let progress = 0;
+  let interval;
+
+  function animateBar() {
+    interval = setInterval(() => {
+      /* Avance rápido al inicio, más lento al final */
+      const step = progress < 60 ? Math.random() * 14 + 6
+                 : progress < 85 ? Math.random() * 6  + 2
+                 :                 Math.random() * 2  + 0.5;
+
+      progress = Math.min(progress + step, 95);
+      if (bar) bar.style.width = progress + '%';
+
+      if (progress >= 95) clearInterval(interval);
+    }, 100);
+  }
+
+  animateBar();
+
+  /* ── 3. Ocultar el loader ── */
+  function hideLoader() {
+    clearInterval(interval);
+    if (bar) bar.style.width = '100%';
+
+    /* Pequeña pausa para que se vea el 100% */
+    setTimeout(() => {
+      loader.classList.add('hidden');
+
+      /* Eliminar del DOM después de la transición */
+      setTimeout(() => loader.remove(), 700);
+    }, 250);
+  }
+
+  /* Ocultar cuando el DOM está listo */
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', hideLoader);
+  } else {
+    /* Si ya cargó (script diferido) — mínimo 1.2s de loader */
+    const elapsed = performance.now();
+    const minTime = 1200;
+    const remaining = Math.max(0, minTime - elapsed);
+    setTimeout(hideLoader, remaining);
+  }
+
+  /* Fallback: si algo falla, esconder igual a los 4s */
+  setTimeout(hideLoader, 4000);
+
+})();
+
+
+/* =======================================
    JV CAR DETAILING — servicios.js
    Reutiliza la lógica base + animaciones específicas de servicios
 ======================================= */

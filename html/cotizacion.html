@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="../logo/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../css/cotizacion.css">
+  <title>Cotización | JV Car Detailing</title>
+</head>
+
+<body>
+
+  <!-- ══════════════════════════════
+       NAVBAR
+  ══════════════════════════════ -->
+  <header>
+    <nav>
+
+      <a href="../index.html" class="logo">
+        <img src="../logo/logo.png" alt="JV Car Detailing Logo" width="180">
+      </a>
+
+      <ul>
+        <li><a href="../index.html">Inicio</a></li>
+        <li><a href="../html/servicios.html">Servicios</a></li>
+        <li><a href="../html/nosotros.html">Nosotros</a></li>
+        <li><a href="../html/contacto.html">Contacto</a></li>
+        <li><a href="../html/cotizacion.html">Solicitar Cotización</a></li>
+      </ul>
+
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ══════════════════════════════
+         HERO
+    ══════════════════════════════ -->
+    <section class="quote-hero">
+      <span class="section-label">Rápido y sin llamadas</span>
+      <h1>Solicitar Cotización</h1>
+      <p>
+        Completá el formulario con los datos de tu vehículo y los servicios
+        que necesitás. Te contactamos por WhatsApp de inmediato.
+      </p>
+    </section>
+
+    <!-- ══════════════════════════════
+         FORMULARIO + SIDEBAR
+    ══════════════════════════════ -->
+    <section class="quote-section">
+
+      <!-- ── FORMULARIO ── -->
+      <form id="quote-form" class="quote-form" novalidate>
+
+        <!-- Datos personales -->
+        <div>
+          <span class="section-label">Tus datos</span>
+          <h2 class="section-title" style="font-size:2rem; margin-bottom:1.5rem;">
+            Información Personal
+          </h2>
+        </div>
+
+        <div class="form-row">
+
+          <div class="form-group">
+            <label for="nombre">Nombre completo *</label>
+            <input type="text" id="nombre" autocomplete="name">
+            <span class="error-msg">Por favor ingresá tu nombre</span>
+          </div>
+
+          <div class="form-group">
+            <label for="telefono">Teléfono / WhatsApp *</label>
+            <input type="tel" id="telefono" autocomplete="tel">
+            <span class="error-msg">Por favor ingresá tu teléfono</span>
+          </div>
+
+        </div>
+
+        <!-- Datos del vehículo -->
+        <div style="margin-top:0.5rem;">
+          <span class="section-label">Tu vehículo</span>
+          <h2 class="section-title" style="font-size:2rem; margin-bottom:1.5rem;">
+            Datos del Vehículo
+          </h2>
+        </div>
+
+        <div class="form-row">
+
+          <div class="form-group">
+            <label for="marca">Marca *</label>
+            <input type="text" id="marca">
+            <span class="error-msg">Ingresá la marca del vehículo</span>
+          </div>
+
+          <div class="form-group">
+            <label for="modelo">Modelo *</label>
+            <input type="text" id="modelo">
+            <span class="error-msg">Ingresá el modelo del vehículo</span>
+          </div>
+
+        </div>
+
+        <div class="form-row">
+
+          <div class="form-group">
+            <label for="anio">Año *</label>
+            <input type="number" id="anio" min="1990" max="2026">
+            <span class="error-msg">Ingresá el año del vehículo</span>
+          </div>
+
+          <div class="form-group">
+            <label for="color">Color</label>
+            <input type="text" id="color">
+          </div>
+
+        </div>
+
+        <div class="form-group">
+          <label for="tipo">Tipo de vehículo</label>
+          <select id="tipo">
+            <option value="" disabled selected>Seleccioná el tipo</option>
+            <option value="Sedán">Sedán</option>
+            <option value="SUV / Jeep">SUV / Jeep</option>
+            <option value="Pickup">Pickup</option>
+            <option value="Hatchback">Hatchback</option>
+            <option value="Van / Minivan">Van / Minivan</option>
+            <option value="Camión">Camión</option>
+            <option value="Otro">Otro</option>
+          </select>
+        </div>
+
+        <!-- Servicios -->
+        <div style="margin-top:0.5rem;">
+          <span class="section-label">¿Qué necesitás?</span>
+          <h2 class="section-title" style="font-size:2rem; margin-bottom:0.5rem;">
+            Servicios Deseados
+          </h2>
+          <p style="color:var(--muted); font-size:0.88rem; margin-bottom:1.2rem;">
+            Podés seleccionar varios servicios
+          </p>
+        </div>
+
+        <div class="services-check-grid">
+
+          <label class="check-item">
+            <input type="checkbox" value="Restauración de Focos">
+            <span class="check-icon"></span>
+            <span class="check-label">Restauración de Focos</span>
+          </label>
+
+          <label class="check-item">
+            <input type="checkbox" value="Pulido Profesional">
+            <span class="check-icon"></span>
+            <span class="check-label">Pulido Profesional</span>
+          </label>
+
+          <label class="check-item">
+            <input type="checkbox" value="Tratamiento Cerámico">
+            <span class="check-icon"></span>
+            <span class="check-label">Tratamiento Cerámico</span>
+          </label>
+
+          <label class="check-item">
+            <input type="checkbox" value="Limpieza Profunda Interior">
+            <span class="check-icon"></span>
+            <span class="check-label">Limpieza Interior</span>
+          </label>
+
+          <label class="check-item">
+            <input type="checkbox" value="Limpieza Profunda Exterior">
+            <span class="check-icon"></span>
+            <span class="check-label">Limpieza Exterior</span>
+          </label>
+
+          <label class="check-item">
+            <input type="checkbox" value="Corrección de Pintura">
+            <span class="check-icon"></span>
+            <span class="check-label">Corrección de Pintura</span>
+          </label>
+
+          <label class="check-item">
+            <input type="checkbox" value="Detailing Completo">
+            <span class="check-icon"></span>
+            <span class="check-label">Detailing Completo</span>
+          </label>
+
+          <label class="check-item">
+            <input type="checkbox" value="Otro servicio">
+            <span class="check-icon"></span>
+            <span class="check-label">Otro / Consultar</span>
+          </label>
+
+        </div>
+
+        <span class="check-error" id="check-error">
+          Seleccioná al menos un servicio
+        </span>
+
+        <!-- Notas adicionales -->
+        <div class="form-group">
+          <label for="notas">Notas adicionales</label>
+          <textarea id="notas"
+            placeholder="Contanos más sobre el estado de tu vehículo, urgencia, preguntas..."></textarea>
+        </div>
+
+        <!-- Botón enviar -->
+        <button type="submit" class="btn-submit">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+            <path
+              d="M12 0C5.373 0 0 5.373 0 12c0 2.136.564 4.204 1.635 6.012L.057 23.625a.75.75 0 00.918.918l5.613-1.578A11.938 11.938 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.726 9.726 0 01-5.003-1.382l-.36-.214-3.732 1.048 1.048-3.732-.214-.36A9.726 9.726 0 012.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z" />
+          </svg>
+          Enviar por WhatsApp
+        </button>
+
+        <p class="form-note">
+          Al hacer clic se abrirá WhatsApp con tu solicitud lista para enviar
+        </p>
+
+      </form>
+
+      <!-- ── SIDEBAR ── -->
+      <aside class="quote-sidebar">
+
+        <!-- Preview del mensaje -->
+        <div class="sidebar-card">
+          <h3>👁 Vista previa del mensaje</h3>
+          <div id="msg-preview" class="message-preview">
+            Completá el formulario para ver cómo llegará tu mensaje...
+          </div>
+        </div>
+
+        <!-- Tips -->
+        <div class="sidebar-card">
+          <h3> Tips</h3>
+
+          <div class="tip-item">
+            <div class="tip-dot"></div>
+            <p>Podés seleccionar <strong>varios servicios</strong> a la vez para una cotización completa.</p>
+          </div>
+
+          <div class="tip-item">
+            <div class="tip-dot"></div>
+            <p>Incluí el <strong>año y estado actual</strong> del vehículo para una cotización más precisa.</p>
+          </div>
+
+          <div class="tip-item">
+            <div class="tip-dot"></div>
+            <p>Respondemos por WhatsApp en <strong>horario de lunes a sábado</strong>, de 8 AM a 6 PM.</p>
+          </div>
+
+          <div class="tip-item">
+            <div class="tip-dot"></div>
+            <p>Si tenés fotos del vehículo, podés <strong>adjuntarlas en el chat</strong> de WhatsApp.</p>
+          </div>
+
+        </div>
+
+        <!-- Contacto directo -->
+        <div class="sidebar-card">
+          <h3> Contacto directo</h3>
+          <a href="https://wa.me/50687944434" target="_blank" rel="noopener" class="btn-primary"
+            style="display:inline-flex; margin-top:0.3rem; width:100%; justify-content:center;">
+            +506 8794-4434
+          </a>
+        </div>
+
+      </aside>
+
+    </section>
+
+  </main>
+
+  <!-- ══════════════════════════════
+       FOOTER
+  ══════════════════════════════ -->
+  <footer>
+    <img src="../logo/logo.png" alt="JV Car Detailing Logo" width="150">
+    <p>Estética y Detailing Automotriz Profesional</p>
+    <p>Rincón de Orozco, Costa Rica · 8794-4434</p>
+    <p class="copyright">© 2026 JV Car Detailing. Todos los derechos reservados.</p>
+  </footer>
+
+  <script src="../js/cotizacion.js"></script>
+
+</body>
+
+</html>
