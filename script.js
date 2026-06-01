@@ -1,0 +1,339 @@
+/* =======================================
+   JV CAR DETAILING — script.js
+   Animaciones: partículas · reveal · cursor · navbar · contador
+======================================= */
+
+'use strict';
+
+/* ── Esperar DOM ── */
+document.addEventListener('DOMContentLoaded', () => {
+
+  initParticles();
+  initCustomCursor();
+  initNavbar();
+  initMobileMenu();
+  initScrollReveal();
+  initCounters();
+  initActiveNav();
+
+});
+
+/* ═══════════════════════════════════════
+   1. PARTÍCULAS DE FONDO
+═══════════════════════════════════════ */
+function initParticles() {
+  const canvas = document.createElement('canvas');
+  canvas.id = 'particles-canvas';
+  document.body.prepend(canvas);
+
+  const ctx   = canvas.getContext('2d');
+  let W, H, particles;
+
+  const config = {
+    count: 55,
+    color: '192, 57, 43',
+    minR: 1,
+    maxR: 2.5,
+    speed: 0.35,
+    connectDist: 130,
+  };
+
+  function resize() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+
+  function createParticles() {
+    particles = Array.from({ length: config.count }, () => ({
+      x: Math.random() * W,
+      y: Math.random() * H,
+      r: config.minR + Math.random() * (config.maxR - config.minR),
+      vx: (Math.random() - 0.5) * config.speed,
+      vy: (Math.random() - 0.5) * config.speed,
+    }));
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+
+    /* Líneas de conexión */
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < config.connectDist) {
+          const alpha = (1 - dist / config.connectDist) * 0.4;
+          ctx.beginPath();
+          ctx.strokeStyle = `rgba(${config.color}, ${alpha})`;
+          ctx.lineWidth = 0.8;
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    /* Puntos */
+    particles.forEach(p => {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${config.color}, 0.7)`;
+      ctx.fill();
+
+      p.x += p.vx;
+      p.y += p.vy;
+
+      if (p.x < 0 || p.x > W) p.vx *= -1;
+      if (p.y < 0 || p.y > H) p.vy *= -1;
+    });
+
+    requestAnimationFrame(draw);
+  }
+
+  resize();
+  createParticles();
+  draw();
+
+  window.addEventListener('resize', () => {
+    resize();
+    createParticles();
+  });
+}
+
+/* ═══════════════════════════════════════
+   2. CURSOR PERSONALIZADO
+═══════════════════════════════════════ */
+function initCustomCursor() {
+  /* Solo en desktop */
+  if (window.matchMedia('(max-width: 700px)').matches) return;
+
+  const dot  = document.createElement('div');
+  const ring = document.createElement('div');
+  dot.className  = 'cursor-dot';
+  ring.className = 'cursor-ring';
+  document.body.append(dot, ring);
+
+  let mx = 0, my = 0;
+  let rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX;
+    my = e.clientY;
+    dot.style.left = mx + 'px';
+    dot.style.top  = my + 'px';
+  });
+
+  /* Suavizado del ring */
+  function animRing() {
+    rx += (mx - rx) * 0.14;
+    ry += (my - ry) * 0.14;
+    ring.style.left = rx + 'px';
+    ring.style.top  = ry + 'px';
+    requestAnimationFrame(animRing);
+  }
+  animRing();
+
+  /* Hover en links y botones */
+  document.querySelectorAll('a, button, .service-card, .benefit-item').forEach(el => {
+    el.addEventListener('mouseenter', () => ring.classList.add('hover'));
+    el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
+  });
+}
+
+/* ═══════════════════════════════════════
+   3. NAVBAR — scroll shadow + active
+═══════════════════════════════════════ */
+function initNavbar() {
+  const header = document.querySelector('header');
+  if (!header) return;
+
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
+}
+
+/* ═══════════════════════════════════════
+   4. MENÚ MOBILE
+═══════════════════════════════════════ */
+function initMobileMenu() {
+  const nav   = document.querySelector('nav ul');
+  if (!nav) return;
+
+  const btn = document.createElement('button');
+  btn.className = 'hamburger';
+  btn.setAttribute('aria-label', 'Menú');
+  btn.innerHTML = '<span></span><span></span><span></span>';
+  document.querySelector('nav').append(btn);
+
+  btn.addEventListener('click', () => {
+    const open = nav.classList.toggle('open');
+    btn.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', open);
+  });
+
+  /* Cerrar al hacer clic en un link */
+  nav.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      nav.classList.remove('open');
+      btn.classList.remove('open');
+    });
+  });
+}
+
+/* ═══════════════════════════════════════
+   5. SCROLL REVEAL
+═══════════════════════════════════════ */
+function initScrollReveal() {
+  const elements = document.querySelectorAll(
+    '.service-card, .benefit-item, .stat-box, .reveal, .reveal-left, .reveal-right, .about-text, .about-stats'
+  );
+
+  if (!elements.length) return;
+
+  /* Delay escalonado para grids */
+  elements.forEach((el, i) => {
+    if (el.closest('.services-grid, .benefits-grid, .about-stats')) {
+      el.style.transitionDelay = `${(i % 6) * 0.1}s`;
+    }
+  });
+
+  const observer = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          /* Agregar clase reveal si no la tiene */
+          if (!entry.target.classList.contains('reveal') &&
+              !entry.target.classList.contains('reveal-left') &&
+              !entry.target.classList.contains('reveal-right')) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'none';
+          }
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+  );
+
+  elements.forEach(el => {
+    /* Si no tiene clase reveal, aplicar estilos base */
+    if (!el.classList.contains('reveal') &&
+        !el.classList.contains('reveal-left') &&
+        !el.classList.contains('reveal-right')) {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(30px)';
+      el.style.transition = 'opacity 0.75s cubic-bezier(0.16,1,0.3,1), transform 0.75s cubic-bezier(0.16,1,0.3,1)';
+    }
+    observer.observe(el);
+  });
+}
+
+/* ═══════════════════════════════════════
+   6. CONTADORES ANIMADOS
+═══════════════════════════════════════ */
+function initCounters() {
+  const nums = document.querySelectorAll('.stat-num[data-target]');
+  if (!nums.length) return;
+
+  const observer = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        animateCount(entry.target);
+        observer.unobserve(entry.target);
+      });
+    },
+    { threshold: 0.5 }
+  );
+
+  nums.forEach(el => observer.observe(el));
+}
+
+function animateCount(el) {
+  const target   = parseInt(el.dataset.target, 10);
+  const suffix   = el.dataset.suffix || '';
+  const duration = 1800;
+  const start    = performance.now();
+
+  function step(now) {
+    const elapsed  = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    /* easing ease-out quart */
+    const eased    = 1 - Math.pow(1 - progress, 4);
+    const current  = Math.round(eased * target);
+    el.textContent = current + suffix;
+    if (progress < 1) requestAnimationFrame(step);
+  }
+
+  requestAnimationFrame(step);
+}
+
+/* ═══════════════════════════════════════
+   7. NAV LINK ACTIVO SEGÚN SCROLL
+═══════════════════════════════════════ */
+function initActiveNav() {
+  const sections = document.querySelectorAll('main section[id]');
+  const links    = document.querySelectorAll('nav ul li a');
+
+  if (!sections.length || !links.length) return;
+
+  const observer = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        links.forEach(a => {
+          a.classList.toggle(
+            'active',
+            a.getAttribute('href') === '#' + entry.target.id ||
+            a.getAttribute('href').includes(entry.target.id)
+          );
+        });
+      });
+    },
+    { threshold: 0.4 }
+  );
+
+  sections.forEach(s => observer.observe(s));
+}
+
+/* ═══════════════════════════════════════
+   8. EFECTO RIPPLE EN BOTONES
+═══════════════════════════════════════ */
+document.addEventListener('click', e => {
+  const btn = e.target.closest('.btn-primary, .btn-secondary');
+  if (!btn) return;
+
+  const rect   = btn.getBoundingClientRect();
+  const ripple = document.createElement('span');
+  const size   = Math.max(rect.width, rect.height);
+
+  ripple.style.cssText = `
+    position: absolute;
+    width: ${size}px;
+    height: ${size}px;
+    left: ${e.clientX - rect.left - size / 2}px;
+    top:  ${e.clientY - rect.top  - size / 2}px;
+    background: rgba(255,255,255,0.18);
+    border-radius: 50%;
+    transform: scale(0);
+    animation: ripple-anim 0.55s ease-out forwards;
+    pointer-events: none;
+  `;
+
+  if (!document.querySelector('#ripple-style')) {
+    const style = document.createElement('style');
+    style.id = 'ripple-style';
+    style.textContent = `@keyframes ripple-anim {
+      to { transform: scale(2.5); opacity: 0; }
+    }`;
+    document.head.append(style);
+  }
+
+  btn.style.position = 'relative';
+  btn.style.overflow = 'hidden';
+  btn.append(ripple);
+  setTimeout(() => ripple.remove(), 600);
+});
