@@ -38,7 +38,52 @@
       <span></span><span></span><span></span>
     </div>
   `;
+  /* =======================================
+   FAVICON ANIMADO
+   Pegar después del loader en script.js
+======================================= */
+(function initFaviconAnimation() {
 
+  const link = document.querySelector("link[rel='shortcut icon']")
+            || document.querySelector("link[rel='icon']");
+  if (!link) return;
+
+  /* Detectar ruta según profundidad */
+  const depth  = location.pathname.split('/').filter(Boolean).length;
+  const prefix = depth >= 2 ? '../' : '';
+
+  const canvas = document.createElement('canvas');
+  canvas.width  = 32;
+  canvas.height = 32;
+  const ctx = canvas.getContext('2d');
+
+  const img = new Image();
+  img.src = `${prefix}logo/logo.png`;
+
+  img.onload = () => {
+    let frame = 0;
+
+    setInterval(() => {
+      ctx.clearRect(0, 0, 32, 32);
+
+      /* Logo base */
+      ctx.drawImage(img, 0, 0, 32, 32);
+
+      /* Pulso rojo alterno */
+      if (Math.floor(frame / 20) % 2 === 0) {
+        ctx.beginPath();
+        ctx.arc(16, 16, 15, 0, Math.PI * 2);
+        ctx.strokeStyle = 'rgba(192, 57, 43, 0.85)';
+        ctx.lineWidth = 2.5;
+        ctx.stroke();
+      }
+
+      link.href = canvas.toDataURL('image/png');
+      frame++;
+    }, 80);
+  };
+
+})();
   /* Insertar antes que todo lo demás */
   document.documentElement.prepend(loader);
 
