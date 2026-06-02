@@ -949,3 +949,267 @@ footer .copyright {
   from { opacity: 0; transform: translateY(12px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+
+/* boton flotante de los tips */
+/* =======================================
+   TIPS FLOTANTE — agregar al final de style.css
+======================================= */
+
+/* ── Botón flotante tips ── */
+.tips-float {
+  position: fixed;
+  bottom: 6rem;
+  left: 2rem;
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 0.75rem 1.2rem 0.75rem 0.9rem;
+  border-radius: 50px;
+  cursor: pointer;
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s, background 0.3s;
+  animation: floatIn 0.8s 1.5s var(--ease-out) both;
+}
+
+.tips-float:hover {
+  border-color: var(--red);
+  background: var(--surface2);
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 12px 40px rgba(192,57,43,0.25);
+}
+
+.tips-float img {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 6px rgba(192,57,43,0.5));
+  transition: transform 0.4s var(--ease-out);
+}
+
+.tips-float:hover img {
+  transform: rotate(-10deg) scale(1.15);
+}
+
+/* Pulso sutil */
+.tips-float::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50px;
+  border: 1px solid var(--red);
+  animation: tips-pulse 2.5s ease-out infinite;
+  pointer-events: none;
+}
+
+@keyframes tips-pulse {
+  0%   { transform: scale(1);   opacity: 0.6; }
+  100% { transform: scale(1.18); opacity: 0; }
+}
+
+/* Móvil — solo ícono */
+@media (max-width: 600px) {
+  .tips-float span { display: none; }
+  .tips-float {
+    padding: 0.85rem;
+    border-radius: 50%;
+    bottom: 5.5rem;
+    left: 1.2rem;
+  }
+  .tips-float::before { border-radius: 50%; }
+}
+
+/* ── Panel de tips ── */
+.tips-panel {
+  position: fixed;
+  bottom: 10rem;
+  left: 2rem;
+  z-index: 91;
+  width: 340px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 0 100%);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(192,57,43,0.1);
+  opacity: 0;
+  transform: translateY(16px) scale(0.97);
+  pointer-events: none;
+  transition: opacity 0.35s var(--ease-out), transform 0.35s var(--ease-out);
+}
+
+.tips-panel.open {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+/* Header del panel */
+.tips-panel__header {
+  padding: 1.2rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--surface2);
+}
+
+.tips-panel__title {
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--red-bright);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.tips-panel__close {
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 1.1rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0.2rem;
+  transition: color 0.3s, transform 0.3s;
+}
+
+.tips-panel__close:hover {
+  color: var(--red-bright);
+  transform: rotate(90deg);
+}
+
+/* Tabs de categorías */
+.tips-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.tips-tabs::-webkit-scrollbar { display: none; }
+
+.tips-tab {
+  flex: 1;
+  padding: 0.7rem 0.5rem;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--muted);
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 0.3s, border-color 0.3s;
+  white-space: nowrap;
+}
+
+.tips-tab.active,
+.tips-tab:hover {
+  color: var(--text);
+  border-bottom-color: var(--red);
+}
+
+/* Contenido de tips */
+.tips-content {
+  padding: 1.2rem 1.5rem;
+  max-height: 340px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--red) transparent;
+}
+
+.tips-content::-webkit-scrollbar { width: 3px; }
+.tips-content::-webkit-scrollbar-thumb { background: var(--red); border-radius: 3px; }
+
+.tips-category {
+  display: none;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.tips-category.active {
+  display: flex;
+}
+
+/* Item de tip */
+.tip-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+  padding: 0.9rem 1rem;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%);
+  transition: border-color 0.3s, transform 0.3s;
+}
+
+.tip-card:hover {
+  border-color: var(--red);
+  transform: translateX(4px);
+}
+
+.tip-card__icon {
+  width: 32px; height: 32px;
+  min-width: 32px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 6px rgba(192,57,43,0.3));
+}
+
+.tip-card__body { flex: 1; }
+
+.tip-card__title {
+  font-family: var(--font-ui);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #fff;
+  margin-bottom: 0.2rem;
+}
+
+.tip-card__desc {
+  font-size: 0.78rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* Footer del panel */
+.tips-panel__footer {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+
+.tips-panel__footer a {
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--red-bright);
+  transition: color 0.3s;
+}
+
+.tips-panel__footer a:hover { color: #fff; }
+
+/* Responsive */
+@media (max-width: 600px) {
+  .tips-panel {
+    left: 1rem;
+    right: 1rem;
+    width: auto;
+    bottom: 9rem;
+  }
+}
+

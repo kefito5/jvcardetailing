@@ -477,3 +477,233 @@ document.addEventListener('click', e => {
   btn.append(ripple);
   setTimeout(() => ripple.remove(), 600);
 });
+
+/* boton flotante de los tips del cuidado del carro */
+/* =======================================
+   TIPS FLOTANTE — agregar al final de script.js
+   (y en cada JS de página donde lo uses)
+======================================= */
+
+function initTipsPanel() {
+
+  /* ── Detectar ruta del ícono ── */
+  const depth  = location.pathname.split('/').filter(Boolean).length;
+  const prefix = depth >= 2 ? '../' : '';
+
+  /* ── HTML del botón flotante ── */
+  const btn = document.createElement('button');
+  btn.className = 'tips-float';
+  btn.setAttribute('aria-label', 'Tips de cuidado');
+  btn.innerHTML = `
+    <img src="${prefix}iconos/tips.png" alt="Tips">
+    <span>Tips de Cuidado</span>
+  `;
+
+  /* ── HTML del panel ── */
+  const panel = document.createElement('div');
+  panel.className = 'tips-panel';
+  panel.setAttribute('role', 'dialog');
+  panel.setAttribute('aria-label', 'Tips de cuidado post-detailing');
+
+  panel.innerHTML = `
+    <div class="tips-panel__header">
+      <span class="tips-panel__title">
+        💡 Tips Post-Detailing
+      </span>
+      <button class="tips-panel__close" aria-label="Cerrar">✕</button>
+    </div>
+
+    <div class="tips-tabs">
+      <button class="tips-tab active" data-tab="general">General</button>
+      <button class="tips-tab" data-tab="ceramico">Cerámico</button>
+      <button class="tips-tab" data-tab="pulido">Pulido</button>
+      <button class="tips-tab" data-tab="interior">Interior</button>
+    </div>
+
+    <div class="tips-content">
+
+      <!-- General -->
+      <div class="tips-category active" data-category="general">
+
+        <div class="tip-card">
+          <img class="tip-card__icon" src="${prefix}iconos/tips.png" alt="">
+          <div class="tip-card__body">
+            <p class="tip-card__title">Primeras 24 horas</p>
+            <p class="tip-card__desc">Evitá exponer el vehículo a lluvia, sol directo o polvo durante las primeras 24 horas.</p>
+          </div>
+        </div>
+
+        <div class="tip-card">
+          <img class="tip-card__icon" src="${prefix}iconos/tips.png" alt="">
+          <div class="tip-card__body">
+            <p class="tip-card__title">Lavado correcto</p>
+            <p class="tip-card__desc">Usá siempre agua abundante y shampoo específico para carros. Nunca detergente de cocina.</p>
+          </div>
+        </div>
+
+        <div class="tip-card">
+          <img class="tip-card__icon" src="${prefix}iconos/tips.png" alt="">
+          <div class="tip-card__body">
+            <p class="tip-card__title">Paño de microfibra</p>
+            <p class="tip-card__desc">Secá siempre con paños de microfibra limpia. Nunca tela áspera o esponjas viejas.</p>
+          </div>
+        </div>
+
+        <div class="tip-card">
+          <img class="tip-card__icon" src="${prefix}iconos/tips.png" alt="">
+          <div class="tip-card__body">
+            <p class="tip-card__title">Estacionamiento</p>
+            <p class="tip-card__desc">Preferí sombra o garaje. El sol constante degrada la pintura y los tratamientos más rápido.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Cerámico -->
+      <div class="tips-category" data-category="ceramico">
+
+        <div class="tip-card">
+          <img class="tip-card__icon" src="${prefix}iconos/tips.png" alt="">
+          <div class="tip-card__body">
+            <p class="tip-card__title">No lavar por 72 horas</p>
+            <p class="tip-card__desc">El recubrimiento cerámico necesita al menos 72 horas para curar completamente. No lo lavés.</p>
+          </div>
+        </div>
+
+        <div class="tip-card">
+          <img class="tip-card__icon" src="${prefix}iconos/tips.png" alt="">
+          <div class="tip-card__body">
+            <p class="tip-card__title">Sin cera encima</p>
+            <p class="tip-card__desc">No apliqués cera sobre el cerámico. Usá solo mantenedores específicos para cerámica.</p>
+          </div>
+        </div>
+
+        <div class="tip-card">
+          <img class="tip-card__icon" src="${prefix}iconos/tips.png" alt="">
+          <div class="tip-card__body">
+            <p class="tip-card__title">Lluvia ácida</p>
+            <p class="tip-card__desc">Después de lluvia, lavá el carro cuanto antes. El agua ácida puede manchar el cerámico.</p>
+          </div>
+        </div>
+
+        <div class="tip-card">
+          <img class="tip-card__icon" src="${prefix}iconos/tips.png" alt="">
+          <div class="tip-card__body">
+            <p class="tip-card__title">Duración</p>
+            <p class="tip-card__desc">Con buen mantenimiento el cerámico dura 1-3 años. Contactanos para reaplique cuando sea necesario.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Pulido -->
+      <div class="tips-category" data-category="pulido">
+
+        <div class="tip-card">
+          <img class="tip-card__icon" src="${prefix}iconos/tips.png" alt="">
+          <div class="tip-card__body">
+            <p class="tip-card__title">Protegé el brillo</p>
+            <p class="tip-card__desc">Aplicá una capa de cera o sellador cada 3-4 meses para mantener el brillo del pulido.</p>
+          </div>
+        </div>
+
+        <div class="tip-card">
+          <img class="tip-card__icon" src="${prefix}iconos/tips.png" alt="">
+          <div class="tip-card__body">
+            <p class="tip-card__title">Evitá lavados automáticos</p>
+            <p class="tip-card__desc">Los cepillos de lavados automáticos generan micro-rayones. Preferí lavado manual.</p>
+          </div>
+        </div>
+
+        <div class="tip-card">
+          <img class="tip-card__icon" src="${prefix}iconos/tips.png" alt="">
+          <div class="tip-card__body">
+            <p class="tip-card__title">Excremento de pájaros</p>
+            <p class="tip-card__desc">Removelo cuanto antes. El ácido puede dañar el pulido si se deja mucho tiempo.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Interior -->
+      <div class="tips-category" data-category="interior">
+
+        <div class="tip-card">
+          <img class="tip-card__icon" src="${prefix}iconos/tips.png" alt="">
+          <div class="tip-card__body">
+            <p class="tip-card__title">Ventilación</p>
+            <p class="tip-card__desc">Después de la limpieza interior, ventilá bien el vehículo antes de usar para evitar olores.</p>
+          </div>
+        </div>
+
+        <div class="tip-card">
+          <img class="tip-card__icon" src="${prefix}iconos/tips.png" alt="">
+          <div class="tip-card__body">
+            <p class="tip-card__title">Aspirado regular</p>
+            <p class="tip-card__desc">Aspirá el interior cada 2 semanas para evitar acumulación de polvo y suciedad.</p>
+          </div>
+        </div>
+
+        <div class="tip-card">
+          <img class="tip-card__icon" src="${prefix}iconos/tips.png" alt="">
+          <div class="tip-card__body">
+            <p class="tip-card__title">Protector de tablero</p>
+            <p class="tip-card__desc">Aplicá protector UV en el tablero cada mes para evitar que se agriete con el sol.</p>
+          </div>
+        </div>
+
+        <div class="tip-card">
+          <img class="tip-card__icon" src="${prefix}iconos/tips.png" alt="">
+          <div class="tip-card__body">
+            <p class="tip-card__title">Tapetes</p>
+            <p class="tip-card__desc">Lavá los tapetes por separado cada 2 semanas. Dejá secar completamente antes de poner en el carro.</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="tips-panel__footer">
+      <a href="${prefix}html/cotizacion.html">¿Necesitás otro servicio? → Cotizá aquí</a>
+    </div>
+  `;
+
+  document.body.append(btn, panel);
+
+  /* ── Lógica de apertura/cierre ── */
+  btn.addEventListener('click', () => {
+    panel.classList.toggle('open');
+  });
+
+  panel.querySelector('.tips-panel__close').addEventListener('click', () => {
+    panel.classList.remove('open');
+  });
+
+  /* Cerrar al clic fuera */
+  document.addEventListener('click', e => {
+    if (!panel.contains(e.target) && e.target !== btn && !btn.contains(e.target)) {
+      panel.classList.remove('open');
+    }
+  });
+
+  /* ── Tabs ── */
+  panel.querySelectorAll('.tips-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      panel.querySelectorAll('.tips-tab').forEach(t => t.classList.remove('active'));
+      panel.querySelectorAll('.tips-category').forEach(c => c.classList.remove('active'));
+      tab.classList.add('active');
+      panel.querySelector(`[data-category="${tab.dataset.tab}"]`).classList.add('active');
+    });
+  });
+
+  /* ── Cursor hover ── */
+  const ring = document.querySelector('.cursor-ring');
+  if (ring) {
+    btn.addEventListener('mouseenter', () => ring.classList.add('hover'));
+    btn.addEventListener('mouseleave', () => ring.classList.remove('hover'));
+  }
+}
+
+/* Llamar la función */
+document.addEventListener('DOMContentLoaded', initTipsPanel);
