@@ -495,7 +495,7 @@ function initTipsPanel() {
   btn.className = 'tips-float';
   btn.setAttribute('aria-label', 'Tips de cuidado');
   btn.innerHTML = `
-    <img src="${prefix}iconos/tips.png" alt="Tips">
+    <img src="${prefix}iconos/iconos_tips/tip.png" alt="Tips">
     <span>Tips de Cuidado</span>
   `;
 
@@ -508,7 +508,7 @@ function initTipsPanel() {
   panel.innerHTML = `
     <div class="tips-panel__header">
       <span class="tips-panel__title">
-        💡 Tips Post-Detailing
+         Tips Post-Detailing
       </span>
       <button class="tips-panel__close" aria-label="Cerrar">✕</button>
     </div>
@@ -526,7 +526,7 @@ function initTipsPanel() {
       <div class="tips-category active" data-category="general">
 
         <div class="tip-card">
-          <img class="tip-card__icon" src="${prefix}iconos/tips.png" alt="">
+          <img class="tip-card__icon" src="${prefix}iconos/iconos_tips/clock.png" alt="">
           <div class="tip-card__body">
             <p class="tip-card__title">Primeras 24 horas</p>
             <p class="tip-card__desc">Evitá exponer el vehículo a lluvia, sol directo o polvo durante las primeras 24 horas.</p>
@@ -534,7 +534,7 @@ function initTipsPanel() {
         </div>
 
         <div class="tip-card">
-          <img class="tip-card__icon" src="${prefix}iconos/tips.png" alt="">
+          <img class="tip-card__icon" src="${prefix}iconos/iconos_tips/jabon.png" alt="">
           <div class="tip-card__body">
             <p class="tip-card__title">Lavado correcto</p>
             <p class="tip-card__desc">Usá siempre agua abundante y shampoo específico para carros. Nunca detergente de cocina.</p>
@@ -542,7 +542,7 @@ function initTipsPanel() {
         </div>
 
         <div class="tip-card">
-          <img class="tip-card__icon" src="${prefix}iconos/tips.png" alt="">
+          <img class="tip-card__icon" src="${prefix}iconos/iconos_tips/paño.png" alt="">
           <div class="tip-card__body">
             <p class="tip-card__title">Paño de microfibra</p>
             <p class="tip-card__desc">Secá siempre con paños de microfibra limpia. Nunca tela áspera o esponjas viejas.</p>
@@ -550,7 +550,7 @@ function initTipsPanel() {
         </div>
 
         <div class="tip-card">
-          <img class="tip-card__icon" src="${prefix}iconos/tips.png" alt="">
+          <img class="tip-card__icon" src="${prefix}iconos/iconos_tips/parkin.png" alt="">
           <div class="tip-card__body">
             <p class="tip-card__title">Estacionamiento</p>
             <p class="tip-card__desc">Preferí sombra o garaje. El sol constante degrada la pintura y los tratamientos más rápido.</p>
@@ -563,7 +563,7 @@ function initTipsPanel() {
       <div class="tips-category" data-category="ceramico">
 
         <div class="tip-card">
-          <img class="tip-card__icon" src="${prefix}iconos/tips.png" alt="">
+          <img class="tip-card__icon" src="${prefix}iconos/iconos_tips/clock.png" alt="">
           <div class="tip-card__body">
             <p class="tip-card__title">No lavar por 72 horas</p>
             <p class="tip-card__desc">El recubrimiento cerámico necesita al menos 72 horas para curar completamente. No lo lavés.</p>
@@ -571,7 +571,7 @@ function initTipsPanel() {
         </div>
 
         <div class="tip-card">
-          <img class="tip-card__icon" src="${prefix}iconos/tips.png" alt="">
+          <img class="tip-card__icon" src="${prefix}iconos/iconos_tips/cera.png" alt="">
           <div class="tip-card__body">
             <p class="tip-card__title">Sin cera encima</p>
             <p class="tip-card__desc">No apliqués cera sobre el cerámico. Usá solo mantenedores específicos para cerámica.</p>
@@ -579,7 +579,7 @@ function initTipsPanel() {
         </div>
 
         <div class="tip-card">
-          <img class="tip-card__icon" src="${prefix}iconos/tips.png" alt="">
+          <img class="tip-card__icon" src="${prefix}iconos/iconos_tips/lluvia.png" alt="">
           <div class="tip-card__body">
             <p class="tip-card__title">Lluvia ácida</p>
             <p class="tip-card__desc">Después de lluvia, lavá el carro cuanto antes. El agua ácida puede manchar el cerámico.</p>
@@ -587,7 +587,7 @@ function initTipsPanel() {
         </div>
 
         <div class="tip-card">
-          <img class="tip-card__icon" src="${prefix}iconos/tips.png" alt="">
+          <img class="tip-card__icon" src="${prefix}iconos/iconos_tips/tiempo.png" alt="">
           <div class="tip-card__body">
             <p class="tip-card__title">Duración</p>
             <p class="tip-card__desc">Con buen mantenimiento el cerámico dura 1-3 años. Contactanos para reaplique cuando sea necesario.</p>
@@ -600,7 +600,7 @@ function initTipsPanel() {
       <div class="tips-category" data-category="pulido">
 
         <div class="tip-card">
-          <img class="tip-card__icon" src="${prefix}iconos/tips.png" alt="">
+          <img class="tip-card__icon" src="${prefix}iconos/iconos_tips/protege.png" alt="">
           <div class="tip-card__body">
             <p class="tip-card__title">Protegé el brillo</p>
             <p class="tip-card__desc">Aplicá una capa de cera o sellador cada 3-4 meses para mantener el brillo del pulido.</p>
@@ -608,7 +608,7 @@ function initTipsPanel() {
         </div>
 
         <div class="tip-card">
-          <img class="tip-card__icon" src="${prefix}iconos/tips.png" alt="">
+          <img class="tip-card__icon" src="${prefix}iconos/iconos_tips/lavado_auto.png" alt="">
           <div class="tip-card__body">
             <p class="tip-card__title">Evitá lavados automáticos</p>
             <p class="tip-card__desc">Los cepillos de lavados automáticos generan micro-rayones. Preferí lavado manual.</p>
@@ -616,7 +616,7 @@ function initTipsPanel() {
         </div>
 
         <div class="tip-card">
-          <img class="tip-card__icon" src="${prefix}iconos/tips.png" alt="">
+          <img class="tip-card__icon" src="${prefix}iconos/iconos_tips/paloma.png" alt="">
           <div class="tip-card__body">
             <p class="tip-card__title">Excremento de pájaros</p>
             <p class="tip-card__desc">Removelo cuanto antes. El ácido puede dañar el pulido si se deja mucho tiempo.</p>
@@ -629,7 +629,7 @@ function initTipsPanel() {
       <div class="tips-category" data-category="interior">
 
         <div class="tip-card">
-          <img class="tip-card__icon" src="${prefix}iconos/tips.png" alt="">
+          <img class="tip-card__icon" src="${prefix}iconos/iconos_tips/avanico.png" alt="">
           <div class="tip-card__body">
             <p class="tip-card__title">Ventilación</p>
             <p class="tip-card__desc">Después de la limpieza interior, ventilá bien el vehículo antes de usar para evitar olores.</p>
@@ -637,7 +637,7 @@ function initTipsPanel() {
         </div>
 
         <div class="tip-card">
-          <img class="tip-card__icon" src="${prefix}iconos/tips.png" alt="">
+          <img class="tip-card__icon" src="${prefix}iconos/iconos_tips/aspiradora.png" alt="">
           <div class="tip-card__body">
             <p class="tip-card__title">Aspirado regular</p>
             <p class="tip-card__desc">Aspirá el interior cada 2 semanas para evitar acumulación de polvo y suciedad.</p>
@@ -645,7 +645,7 @@ function initTipsPanel() {
         </div>
 
         <div class="tip-card">
-          <img class="tip-card__icon" src="${prefix}iconos/tips.png" alt="">
+          <img class="tip-card__icon" src="${prefix}iconos/iconos_tips/protege.png" alt="">
           <div class="tip-card__body">
             <p class="tip-card__title">Protector de tablero</p>
             <p class="tip-card__desc">Aplicá protector UV en el tablero cada mes para evitar que se agriete con el sol.</p>
@@ -653,7 +653,7 @@ function initTipsPanel() {
         </div>
 
         <div class="tip-card">
-          <img class="tip-card__icon" src="${prefix}iconos/tips.png" alt="">
+          <img class="tip-card__icon" src="${prefix}iconos/iconos_tips/tapete.png" alt="">
           <div class="tip-card__body">
             <p class="tip-card__title">Tapetes</p>
             <p class="tip-card__desc">Lavá los tapetes por separado cada 2 semanas. Dejá secar completamente antes de poner en el carro.</p>
