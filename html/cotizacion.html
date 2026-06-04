@@ -260,18 +260,26 @@
         </div>
 
         <div class="form-group">
-          <label for="tipo">Tipo de vehículo</label>
-          <select id="tipo">
-            <option value="" disabled selected>Seleccioná el tipo</option>
-            <option value="Sedán">Sedán</option>
-            <option value="SUV / Jeep">SUV / Jeep</option>
-            <option value="Pickup">Pickup</option>
-            <option value="Hatchback">Hatchback</option>
-            <option value="Van / Minivan">Van / Minivan</option>
-            <option value="Camión">Camión</option>
-            <option value="Otro">Otro</option>
-          </select>
-        </div>
+  <label for="tipo">Tipo de vehículo</label>
+  <select id="tipo">
+    <option value="" disabled selected>Seleccioná el tipo</option>
+
+    <optgroup label="🚗 Automóvil">
+      <option value="Sedan">Sedán</option>
+      <option value="Hatchback">Hatchback</option>
+      <option value="Coupe">Coupé</option>
+    </optgroup>
+
+    <optgroup label="🚙 SUV">
+      <option value="SUV Mediano">SUV Mediano (RAV4, CR-V, Tucson)</option>
+      <option value="SUV Grande">SUV Grande (Prado, Fortuner, Patrol)</option>
+      <option value="Pickup / Camioneta">Pickup / Camioneta (Hilux, Ranger)</option>
+      <option value="Van / Minivan">Van / Minivan</option>
+    </optgroup>
+
+    <option value="Otro">Otro / Consultar</option>
+  </select>
+</div>
 
         <!-- Servicios -->
         <div style="margin-top:0.5rem;">

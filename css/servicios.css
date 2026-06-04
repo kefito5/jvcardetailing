@@ -358,3 +358,90 @@
     grid-template-columns: 1fr;
   }
 }
+/* =======================================
+   ANIMACIONES IMÁGENES SERVICIOS
+   Agregar al final de servicios.css
+======================================= */
+
+/* Estado inicial — imagen oculta */
+.service-item__img img {
+  opacity: 0;
+  transform: scale(1.1);
+  filter: brightness(0.6) saturate(0.7);
+  transition:
+    opacity 1s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.8s ease;
+}
+
+/* Cuando el item es visible — imagen aparece */
+.service-item.visible .service-item__img img {
+  opacity: 1;
+  transform: scale(1.05);
+  filter: brightness(0.85) saturate(0.9);
+}
+
+/* Hover encima del visible */
+.service-item.visible:hover .service-item__img img {
+  transform: scale(1);
+  filter: brightness(1) saturate(1.05);
+}
+
+/* Delay según posición */
+.service-item:nth-child(1) .service-item__img img { transition-delay: 0.1s; }
+.service-item:nth-child(2) .service-item__img img { transition-delay: 0.15s; }
+.service-item:nth-child(3) .service-item__img img { transition-delay: 0.1s; }
+.service-item:nth-child(4) .service-item__img img { transition-delay: 0.15s; }
+.service-item:nth-child(5) .service-item__img img { transition-delay: 0.1s; }
+
+/* Línea roja animada bajo el título al aparecer */
+.service-item.visible .service-item__body h2::after {
+  width: 80px;
+  transition: width 0.6s 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Número decorativo aparece con el item */
+.service-item__num {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+}
+
+.service-item.visible .service-item__num {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.3s;
+}
+
+/* Ícono aparece con rebote */
+.service-item__icon {
+  opacity: 0;
+  transform: scale(0.5);
+  transition: opacity 0.5s var(--ease-out), transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.service-item.visible .service-item__icon {
+  opacity: 1;
+  transform: scale(1);
+  transition-delay: 0.4s;
+}
+
+/* Texto del body aparece desde abajo */
+.service-item__body h2,
+.service-item__body p {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+}
+
+.service-item.visible .service-item__body h2 {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.25s;
+}
+
+.service-item.visible .service-item__body p {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.35s;
+}
