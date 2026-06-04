@@ -250,7 +250,10 @@ function initMobileMenu() {
   if (!nav) return;
   const btn = document.createElement('button');
   btn.className = 'hamburger'; btn.setAttribute('aria-label', 'Menú');
-  btn.innerHTML = '<span></span><span></span><span></span>';
+ btn.innerHTML = `
+  <img src="../iconos//menu.png" alt="Menú">
+  <span class="close-icon">✕</span>
+`;
   document.querySelector('nav').append(btn);
   btn.addEventListener('click', () => {
     const open = nav.classList.toggle('open');

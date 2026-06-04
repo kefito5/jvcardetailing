@@ -118,27 +118,43 @@ nav ul li a:hover::after,
 nav ul li a.active::after {
   width: 100%;
 }
-
-/* Hamburger */
 .hamburger {
   display: none;
-  flex-direction: column;
-  gap: 5px;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   padding: 4px;
+  background: none;
+  border: none;
+  width: 36px;
+  height: 36px;
 }
 
-.hamburger span {
-  display: block;
-  width: 26px; height: 2px;
-  background: var(--text);
-  border-radius: 2px;
-  transition: all 0.35s var(--ease-out);
+.hamburger img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  transition: opacity 0.3s, transform 0.3s;
 }
 
-.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-.hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.hamburger.open img {
+  opacity: 0;
+  transform: rotate(90deg) scale(0.7);
+}
+
+.hamburger .close-icon {
+  position: absolute;
+  font-size: 1.4rem;
+  color: var(--text);
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.3s;
+  transform: rotate(-90deg) scale(0.7);
+}
+
+.hamburger.open .close-icon {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}n span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 /* ───────────────────────────────────────
    HERO SECTION
