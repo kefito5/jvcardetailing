@@ -6,7 +6,7 @@
   loader.setAttribute('aria-label', 'Cargando JV Car Detailing');
   loader.setAttribute('role', 'status');
 
-  const depth  = location.pathname.split('/').filter(Boolean).length;
+  const depth = location.pathname.split('/').filter(Boolean).length;
   const prefix = depth >= 2 ? '../' : '';
   const logoSrc = `${prefix}logo/logo.png`;
 
@@ -40,8 +40,8 @@
   function animateBar() {
     interval = setInterval(() => {
       const step = progress < 60 ? Math.random() * 14 + 6
-                 : progress < 85 ? Math.random() * 6  + 2
-                 :                 Math.random() * 2  + 0.5;
+        : progress < 85 ? Math.random() * 6 + 2
+          : Math.random() * 2 + 0.5;
       progress = Math.min(progress + step, 95);
       if (bar) bar.style.width = progress + '%';
       if (progress >= 95) clearInterval(interval);
@@ -77,14 +77,14 @@
 (function initFaviconAnimation() {
 
   const link = document.querySelector("link[rel='shortcut icon']")
-            || document.querySelector("link[rel='icon']");
+    || document.querySelector("link[rel='icon']");
   if (!link) return;
 
-  const depth  = location.pathname.split('/').filter(Boolean).length;
+  const depth = location.pathname.split('/').filter(Boolean).length;
   const prefix = depth >= 2 ? '../' : '';
 
   const canvas = document.createElement('canvas');
-  canvas.width  = 32;
+  canvas.width = 32;
   canvas.height = 32;
   const ctx = canvas.getContext('2d');
 
@@ -152,10 +152,10 @@ function initParticles() {
       for (let j = i + 1; j < particles.length; j++) {
         const dx = particles[i].x - particles[j].x;
         const dy = particles[i].y - particles[j].y;
-        const dist = Math.sqrt(dx*dx + dy*dy);
+        const dist = Math.sqrt(dx * dx + dy * dy);
         if (dist < config.connectDist) {
           ctx.beginPath();
-          ctx.strokeStyle = `rgba(${config.color}, ${(1-dist/config.connectDist)*0.35})`;
+          ctx.strokeStyle = `rgba(${config.color}, ${(1 - dist / config.connectDist) * 0.35})`;
           ctx.lineWidth = 0.7;
           ctx.moveTo(particles[i].x, particles[i].y);
           ctx.lineTo(particles[j].x, particles[j].y);
@@ -165,7 +165,7 @@ function initParticles() {
     }
     particles.forEach(p => {
       ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
       ctx.fillStyle = `rgba(${config.color}, 0.65)`;
       ctx.fill();
       p.x += p.vx; p.y += p.vy;
@@ -190,11 +190,11 @@ function initCustomCursor() {
   let mx = 0, my = 0, rx = 0, ry = 0;
   document.addEventListener('mousemove', e => {
     mx = e.clientX; my = e.clientY;
-    dot.style.left = mx+'px'; dot.style.top = my+'px';
+    dot.style.left = mx + 'px'; dot.style.top = my + 'px';
   });
   (function animRing() {
-    rx += (mx-rx)*0.14; ry += (my-ry)*0.14;
-    ring.style.left = rx+'px'; ring.style.top = ry+'px';
+    rx += (mx - rx) * 0.14; ry += (my - ry) * 0.14;
+    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
     requestAnimationFrame(animRing);
   })();
   document.querySelectorAll('a, button, .service-item, .why-card').forEach(el => {
@@ -309,7 +309,7 @@ document.addEventListener('click', e => {
   const size = Math.max(rect.width, rect.height);
   ripple.style.cssText = `
     position:absolute; width:${size}px; height:${size}px;
-    left:${e.clientX-rect.left-size/2}px; top:${e.clientY-rect.top-size/2}px;
+    left:${e.clientX - rect.left - size / 2}px; top:${e.clientY - rect.top - size / 2}px;
     background:rgba(255,255,255,0.16); border-radius:50%; transform:scale(0);
     animation:ripple-anim 0.55s ease-out forwards; pointer-events:none;
   `;

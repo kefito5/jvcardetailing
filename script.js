@@ -11,7 +11,7 @@
   loader.setAttribute('role', 'status');
 
   /* Detectar ruta del logo según profundidad de la página */
-  const depth  = location.pathname.split('/').filter(Boolean).length;
+  const depth = location.pathname.split('/').filter(Boolean).length;
   const prefix = depth >= 2 ? '../' : '';
   const logoSrc = `${prefix}logo/logo.png`;
 
@@ -42,48 +42,48 @@
    FAVICON ANIMADO
    Pegar después del loader en script.js
 ======================================= */
-(function initFaviconAnimation() {
+  (function initFaviconAnimation() {
 
-  const link = document.querySelector("link[rel='shortcut icon']")
-            || document.querySelector("link[rel='icon']");
-  if (!link) return;
+    const link = document.querySelector("link[rel='shortcut icon']")
+      || document.querySelector("link[rel='icon']");
+    if (!link) return;
 
-  /* Detectar ruta según profundidad */
-  const depth  = location.pathname.split('/').filter(Boolean).length;
-  const prefix = depth >= 2 ? '../' : '';
+    /* Detectar ruta según profundidad */
+    const depth = location.pathname.split('/').filter(Boolean).length;
+    const prefix = depth >= 2 ? '../' : '';
 
-  const canvas = document.createElement('canvas');
-  canvas.width  = 32;
-  canvas.height = 32;
-  const ctx = canvas.getContext('2d');
+    const canvas = document.createElement('canvas');
+    canvas.width = 32;
+    canvas.height = 32;
+    const ctx = canvas.getContext('2d');
 
-  const img = new Image();
-  img.src = `${prefix}logo/logo.png`;
+    const img = new Image();
+    img.src = `${prefix}logo/logo.png`;
 
-  img.onload = () => {
-    let frame = 0;
+    img.onload = () => {
+      let frame = 0;
 
-    setInterval(() => {
-      ctx.clearRect(0, 0, 32, 32);
+      setInterval(() => {
+        ctx.clearRect(0, 0, 32, 32);
 
-      /* Logo base */
-      ctx.drawImage(img, 0, 0, 32, 32);
+        /* Logo base */
+        ctx.drawImage(img, 0, 0, 32, 32);
 
-      /* Pulso rojo alterno */
-      if (Math.floor(frame / 20) % 2 === 0) {
-        ctx.beginPath();
-        ctx.arc(16, 16, 15, 0, Math.PI * 2);
-        ctx.strokeStyle = 'rgba(192, 57, 43, 0.85)';
-        ctx.lineWidth = 2.5;
-        ctx.stroke();
-      }
+        /* Pulso rojo alterno */
+        if (Math.floor(frame / 20) % 2 === 0) {
+          ctx.beginPath();
+          ctx.arc(16, 16, 15, 0, Math.PI * 2);
+          ctx.strokeStyle = 'rgba(192, 57, 43, 0.85)';
+          ctx.lineWidth = 2.5;
+          ctx.stroke();
+        }
 
-      link.href = canvas.toDataURL('image/png');
-      frame++;
-    }, 80);
-  };
+        link.href = canvas.toDataURL('image/png');
+        frame++;
+      }, 80);
+    };
 
-})();
+  })();
   /* Insertar antes que todo lo demás */
   document.documentElement.prepend(loader);
 
@@ -96,8 +96,8 @@
     interval = setInterval(() => {
       /* Avance rápido al inicio, más lento al final */
       const step = progress < 60 ? Math.random() * 14 + 6
-                 : progress < 85 ? Math.random() * 6  + 2
-                 :                 Math.random() * 2  + 0.5;
+        : progress < 85 ? Math.random() * 6 + 2
+          : Math.random() * 2 + 0.5;
 
       progress = Math.min(progress + step, 95);
       if (bar) bar.style.width = progress + '%';
@@ -166,7 +166,7 @@ function initParticles() {
   canvas.id = 'particles-canvas';
   document.body.prepend(canvas);
 
-  const ctx   = canvas.getContext('2d');
+  const ctx = canvas.getContext('2d');
   let W, H, particles;
 
   const config = {
@@ -179,7 +179,7 @@ function initParticles() {
   };
 
   function resize() {
-    W = canvas.width  = window.innerWidth;
+    W = canvas.width = window.innerWidth;
     H = canvas.height = window.innerHeight;
   }
 
@@ -249,9 +249,9 @@ function initCustomCursor() {
   /* Solo en desktop */
   if (window.matchMedia('(max-width: 700px)').matches) return;
 
-  const dot  = document.createElement('div');
+  const dot = document.createElement('div');
   const ring = document.createElement('div');
-  dot.className  = 'cursor-dot';
+  dot.className = 'cursor-dot';
   ring.className = 'cursor-ring';
   document.body.append(dot, ring);
 
@@ -262,7 +262,7 @@ function initCustomCursor() {
     mx = e.clientX;
     my = e.clientY;
     dot.style.left = mx + 'px';
-    dot.style.top  = my + 'px';
+    dot.style.top = my + 'px';
   });
 
   /* Suavizado del ring */
@@ -270,7 +270,7 @@ function initCustomCursor() {
     rx += (mx - rx) * 0.14;
     ry += (my - ry) * 0.14;
     ring.style.left = rx + 'px';
-    ring.style.top  = ry + 'px';
+    ring.style.top = ry + 'px';
     requestAnimationFrame(animRing);
   }
   animRing();
@@ -298,13 +298,13 @@ function initNavbar() {
    4. MENÚ MOBILE
 ═══════════════════════════════════════ */
 function initMobileMenu() {
-  const nav   = document.querySelector('nav ul');
+  const nav = document.querySelector('nav ul');
   if (!nav) return;
 
   const btn = document.createElement('button');
   btn.className = 'hamburger';
   btn.setAttribute('aria-label', 'Menú');
- btn.innerHTML = `
+  btn.innerHTML = `
   <img src="iconos/menu.png" alt="Menú">
   <span class="close-icon">✕</span>
 `;
@@ -349,8 +349,8 @@ function initScrollReveal() {
           entry.target.classList.add('visible');
           /* Agregar clase reveal si no la tiene */
           if (!entry.target.classList.contains('reveal') &&
-              !entry.target.classList.contains('reveal-left') &&
-              !entry.target.classList.contains('reveal-right')) {
+            !entry.target.classList.contains('reveal-left') &&
+            !entry.target.classList.contains('reveal-right')) {
             entry.target.style.opacity = '1';
             entry.target.style.transform = 'none';
           }
@@ -364,8 +364,8 @@ function initScrollReveal() {
   elements.forEach(el => {
     /* Si no tiene clase reveal, aplicar estilos base */
     if (!el.classList.contains('reveal') &&
-        !el.classList.contains('reveal-left') &&
-        !el.classList.contains('reveal-right')) {
+      !el.classList.contains('reveal-left') &&
+      !el.classList.contains('reveal-right')) {
       el.style.opacity = '0';
       el.style.transform = 'translateY(30px)';
       el.style.transition = 'opacity 0.75s cubic-bezier(0.16,1,0.3,1), transform 0.75s cubic-bezier(0.16,1,0.3,1)';
@@ -396,17 +396,17 @@ function initCounters() {
 }
 
 function animateCount(el) {
-  const target   = parseInt(el.dataset.target, 10);
-  const suffix   = el.dataset.suffix || '';
+  const target = parseInt(el.dataset.target, 10);
+  const suffix = el.dataset.suffix || '';
   const duration = 1800;
-  const start    = performance.now();
+  const start = performance.now();
 
   function step(now) {
-    const elapsed  = now - start;
+    const elapsed = now - start;
     const progress = Math.min(elapsed / duration, 1);
     /* easing ease-out quart */
-    const eased    = 1 - Math.pow(1 - progress, 4);
-    const current  = Math.round(eased * target);
+    const eased = 1 - Math.pow(1 - progress, 4);
+    const current = Math.round(eased * target);
     el.textContent = current + suffix;
     if (progress < 1) requestAnimationFrame(step);
   }
@@ -419,7 +419,7 @@ function animateCount(el) {
 ═══════════════════════════════════════ */
 function initActiveNav() {
   const sections = document.querySelectorAll('main section[id]');
-  const links    = document.querySelectorAll('nav ul li a');
+  const links = document.querySelectorAll('nav ul li a');
 
   if (!sections.length || !links.length) return;
 
@@ -449,16 +449,16 @@ document.addEventListener('click', e => {
   const btn = e.target.closest('.btn-primary, .btn-secondary');
   if (!btn) return;
 
-  const rect   = btn.getBoundingClientRect();
+  const rect = btn.getBoundingClientRect();
   const ripple = document.createElement('span');
-  const size   = Math.max(rect.width, rect.height);
+  const size = Math.max(rect.width, rect.height);
 
   ripple.style.cssText = `
     position: absolute;
     width: ${size}px;
     height: ${size}px;
     left: ${e.clientX - rect.left - size / 2}px;
-    top:  ${e.clientY - rect.top  - size / 2}px;
+    top:  ${e.clientY - rect.top - size / 2}px;
     background: rgba(255,255,255,0.18);
     border-radius: 50%;
     transform: scale(0);
@@ -490,7 +490,7 @@ document.addEventListener('click', e => {
 function initTipsPanel() {
 
   /* ── Detectar ruta del ícono ── */
-  const depth  = location.pathname.split('/').filter(Boolean).length;
+  const depth = location.pathname.split('/').filter(Boolean).length;
   const prefix = depth >= 2 ? '../' : '';
 
   /* ── HTML del botón flotante ── */

@@ -254,7 +254,7 @@ function initMobileMenu() {
   if (!nav) return;
   const btn = document.createElement('button');
   btn.className = 'hamburger'; btn.setAttribute('aria-label', 'Menú');
- btn.innerHTML = `
+  btn.innerHTML = `
   <img src="../iconos/menu.png" alt="Menú">
   <span class="close-icon">✕</span>
 `;

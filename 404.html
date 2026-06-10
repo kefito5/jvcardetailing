@@ -26,10 +26,12 @@
     .error-page::before {
       content: '';
       position: absolute;
-      top: 50%; left: 50%;
+      top: 50%;
+      left: 50%;
       transform: translate(-50%, -50%);
-      width: 700px; height: 700px;
-      background: radial-gradient(circle, rgba(192,57,43,0.12) 0%, transparent 70%);
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(192, 57, 43, 0.12) 0%, transparent 70%);
       pointer-events: none;
     }
 
@@ -42,7 +44,7 @@
     .error-logo {
       width: 130px;
       margin: 0 auto 2rem;
-      filter: drop-shadow(0 0 14px rgba(192,57,43,0.4));
+      filter: drop-shadow(0 0 14px rgba(192, 57, 43, 0.4));
       opacity: 0;
       animation: fadeUp 0.9s 0.1s var(--ease-out) forwards;
     }
@@ -52,7 +54,7 @@
       font-size: clamp(7rem, 22vw, 14rem);
       line-height: 0.85;
       color: transparent;
-      -webkit-text-stroke: 2px rgba(192,57,43,0.35);
+      -webkit-text-stroke: 2px rgba(192, 57, 43, 0.35);
       letter-spacing: 0.05em;
       display: block;
       opacity: 0;
@@ -65,7 +67,7 @@
       margin: 0.8rem 0;
       opacity: 0;
       animation: fadeUp 0.9s 0.4s var(--ease-out) forwards;
-      filter: drop-shadow(0 0 10px rgba(192,57,43,0.4));
+      filter: drop-shadow(0 0 10px rgba(192, 57, 43, 0.4));
     }
 
     .error-title {
@@ -87,7 +89,9 @@
       animation: fadeUp 0.9s 0.7s var(--ease-out) forwards;
     }
 
-    .error-desc strong { color: var(--red-bright); }
+    .error-desc strong {
+      color: var(--red-bright);
+    }
 
     .error-btns {
       display: flex;
@@ -139,7 +143,7 @@
     .quick-link:hover {
       border-color: var(--red);
       color: var(--text);
-      background: rgba(192,57,43,0.08);
+      background: rgba(192, 57, 43, 0.08);
       transform: translateY(-2px);
     }
   </style>
@@ -171,9 +175,9 @@
       <div class="quick-links">
         <p>¿A dónde querías ir?</p>
         <div class="quick-links-grid">
-          <a href="html/servicios.html"  class="quick-link">Servicios</a>
-          <a href="html/nosotros.html"   class="quick-link">Nosotros</a>
-          <a href="html/contacto.html"   class="quick-link">Contacto</a>
+          <a href="html/servicios.html" class="quick-link">Servicios</a>
+          <a href="html/nosotros.html" class="quick-link">Nosotros</a>
+          <a href="html/contacto.html" class="quick-link">Contacto</a>
           <a href="html/cotizacion.html" class="quick-link">Cotización</a>
         </div>
       </div>
@@ -181,8 +185,8 @@
     </div>
   </div>
 
-  <a href="https://wa.me/50687944434" target="_blank" rel="noopener"
-     class="whatsapp-float" aria-label="Contactar por WhatsApp">
+  <a href="https://wa.me/50687944434" target="_blank" rel="noopener" class="whatsapp-float"
+    aria-label="Contactar por WhatsApp">
     <img src="iconos/what.png" alt="WhatsApp">
     <span>Escríbenos</span>
   </a>
@@ -190,4 +194,5 @@
   <script src="script.js"></script>
 
 </body>
+
 </html>
