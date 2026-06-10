@@ -183,23 +183,17 @@
   box-shadow: 0 8px 32px rgba(192,57,43,0.4);
 }
 
-.who-visual__badge span {
-  font-family: var(--font-hero);
-  font-size: 2rem;
-  color: #fff;
-  display: block;
-  line-height: 1;
+.who-visual__badge {
+  background: transparent; /* quitás el fondo rojo */
+  padding: 0;
+  clip-path: none;
+  box-shadow: none;
 }
 
-.who-visual__badge small {
-  font-family: var(--font-ui);
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.8);
+.who-visual__badge img {
+  width: 90px;
+  filter: drop-shadow(0 0 12px rgba(192,57,43,0.6));
 }
-
 /* ───────────────────────────────────────
    MISIÓN Y VISIÓN
 ─────────────────────────────────────── */
@@ -451,4 +445,28 @@
 @media (max-width: 400px) {
   .values-grid { grid-template-columns: 1fr; }
   .hero-stats-bar { grid-template-columns: 1fr 1fr; }
+}
+/* stylo del video */
+/* Overlay rojizo sobre el video */
+.who-visual::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(192,57,43,0.3) 0%,
+    transparent 55%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Filter al video */
+.who-visual__img {
+  filter: brightness(0.85) saturate(1.3) hue-rotate(-8deg);
+  transition: filter 0.5s;
+}
+
+.who-visual:hover .who-visual__img {
+  filter: brightness(0.95) saturate(1.4) hue-rotate(-8deg);
 }
