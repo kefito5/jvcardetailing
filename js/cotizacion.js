@@ -404,7 +404,7 @@ function initForm() {
       `*Notas:* ${notas}`;
 
     const encoded = encodeURIComponent(msg);
-    window.open(`https://wa.me/50687944434?text=${encoded}`, '_blank');
+    window.open(`https://wa.me/50660180919?text=${encoded}`, '_blank');
   });
 }
 
