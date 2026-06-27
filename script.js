@@ -1,17 +1,12 @@
-/* =======================================
-   LOADER —
-======================================= */
-
+/* ── LOADER ── */
 (function initLoader() {
 
-  /* ── 1. Crear el HTML del loader ── */
   const loader = document.createElement('div');
   loader.id = 'jv-loader';
   loader.setAttribute('aria-label', 'Cargando JV Car Detailing');
   loader.setAttribute('role', 'status');
 
-  /* Detectar ruta del logo según profundidad de la página */
-  const depth = location.pathname.split('/').filter(Boolean).length;
+  const depth  = location.pathname.split('/').filter(Boolean).length;
   const prefix = depth >= 2 ? '../' : '';
   const logoSrc = `${prefix}logo/logo.png`;
 
@@ -24,130 +19,103 @@
         <img src="${logoSrc}" alt="JV Car Detailing">
       </div>
     </div>
-
     <div class="loader-text">
       <span class="loader-brand">JV Car Detailing</span>
       <span class="loader-sub">Detallado Profesional</span>
     </div>
-
     <div class="loader-bar-wrap">
       <div class="loader-bar" id="jv-loader-bar"></div>
     </div>
-
     <div class="loader-dots">
       <span></span><span></span><span></span>
     </div>
   `;
-  /* =======================================
-   FAVICON ANIMADO
-   Pegar después del loader en script.js
-======================================= */
-  (function initFaviconAnimation() {
 
-    const link = document.querySelector("link[rel='shortcut icon']")
-      || document.querySelector("link[rel='icon']");
-    if (!link) return;
-
-    /* Detectar ruta según profundidad */
-    const depth = location.pathname.split('/').filter(Boolean).length;
-    const prefix = depth >= 2 ? '../' : '';
-
-    const canvas = document.createElement('canvas');
-    canvas.width = 32;
-    canvas.height = 32;
-    const ctx = canvas.getContext('2d');
-
-    const img = new Image();
-    img.src = `${prefix}logo/logo.png`;
-
-    img.onload = () => {
-      let frame = 0;
-
-      setInterval(() => {
-        ctx.clearRect(0, 0, 32, 32);
-
-        /* Logo base */
-        ctx.drawImage(img, 0, 0, 32, 32);
-
-        /* Pulso rojo alterno */
-        if (Math.floor(frame / 20) % 2 === 0) {
-          ctx.beginPath();
-          ctx.arc(16, 16, 15, 0, Math.PI * 2);
-          ctx.strokeStyle = 'rgba(192, 57, 43, 0.85)';
-          ctx.lineWidth = 2.5;
-          ctx.stroke();
-        }
-
-        link.href = canvas.toDataURL('image/png');
-        frame++;
-      }, 80);
-    };
-
-  })();
-  /* Insertar antes que todo lo demás */
   document.documentElement.prepend(loader);
 
-  /* ── 2. Animar la barra de progreso ── */
   const bar = document.getElementById('jv-loader-bar');
   let progress = 0;
   let interval;
 
   function animateBar() {
     interval = setInterval(() => {
-      /* Avance rápido al inicio, más lento al final */
       const step = progress < 60 ? Math.random() * 14 + 6
-        : progress < 85 ? Math.random() * 6 + 2
-          : Math.random() * 2 + 0.5;
-
+                 : progress < 85 ? Math.random() * 6  + 2
+                 :                 Math.random() * 2  + 0.5;
       progress = Math.min(progress + step, 95);
       if (bar) bar.style.width = progress + '%';
-
       if (progress >= 95) clearInterval(interval);
     }, 100);
   }
 
   animateBar();
 
-  /* ── 3. Ocultar el loader ── */
   function hideLoader() {
     clearInterval(interval);
     if (bar) bar.style.width = '100%';
-
-    /* Pequeña pausa para que se vea el 100% */
     setTimeout(() => {
       loader.classList.add('hidden');
-
-      /* Eliminar del DOM después de la transición */
       setTimeout(() => loader.remove(), 700);
     }, 250);
   }
 
-  /* Ocultar cuando el DOM está listo */
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', hideLoader);
   } else {
-    /* Si ya cargó (script diferido) — mínimo 1.2s de loader */
     const elapsed = performance.now();
-    const minTime = 1200;
-    const remaining = Math.max(0, minTime - elapsed);
+    const remaining = Math.max(0, 1200 - elapsed);
     setTimeout(hideLoader, remaining);
   }
 
-  /* Fallback: si algo falla, esconder igual a los 4s */
   setTimeout(hideLoader, 4000);
 
 })();
+/* ── FIN LOADER ── */
 
-/* =======================================
-   JV CAR DETAILING — script.js
-   Animaciones: partículas · reveal · cursor · navbar · contador
-======================================= */
 
+/* ── FAVICON ANIMADO ── */
+(function initFaviconAnimation() {
+
+  const link = document.querySelector("link[rel='shortcut icon']")
+            || document.querySelector("link[rel='icon']");
+  if (!link) return;
+
+  const depth  = location.pathname.split('/').filter(Boolean).length;
+  const prefix = depth >= 2 ? '../' : '';
+
+  const canvas = document.createElement('canvas');
+  canvas.width  = 32;
+  canvas.height = 32;
+  const ctx = canvas.getContext('2d');
+
+  const img = new Image();
+  img.src = `${prefix}logo/logo.png`;
+
+  img.onload = () => {
+    let frame = 0;
+    setInterval(() => {
+      ctx.clearRect(0, 0, 32, 32);
+      ctx.drawImage(img, 0, 0, 32, 32);
+      if (Math.floor(frame / 20) % 2 === 0) {
+        ctx.beginPath();
+        ctx.arc(16, 16, 15, 0, Math.PI * 2);
+        ctx.strokeStyle = 'rgba(192, 57, 43, 0.85)';
+        ctx.lineWidth = 2.5;
+        ctx.stroke();
+      }
+      link.href = canvas.toDataURL('image/png');
+      frame++;
+    }, 80);
+  };
+
+})();
+/* ── FIN FAVICON ── */
+
+
+/* ── CÓDIGO PRINCIPAL — INDEX ── */
 'use strict';
 
-/* ── Esperar DOM ── */
 document.addEventListener('DOMContentLoaded', () => {
-
   initParticles();
   initCustomCursor();
   initNavbar();
@@ -155,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollReveal();
   initCounters();
   initActiveNav();
-
+  initTipsPanel();
 });
 
 /* ═══════════════════════════════════════
@@ -179,7 +147,7 @@ function initParticles() {
   };
 
   function resize() {
-    W = canvas.width = window.innerWidth;
+    W = canvas.width  = window.innerWidth;
     H = canvas.height = window.innerHeight;
   }
 
@@ -196,7 +164,6 @@ function initParticles() {
   function draw() {
     ctx.clearRect(0, 0, W, H);
 
-    /* Líneas de conexión */
     for (let i = 0; i < particles.length; i++) {
       for (let j = i + 1; j < particles.length; j++) {
         const dx = particles[i].x - particles[j].x;
@@ -215,7 +182,6 @@ function initParticles() {
       }
     }
 
-    /* Puntos */
     particles.forEach(p => {
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
@@ -246,12 +212,11 @@ function initParticles() {
    2. CURSOR PERSONALIZADO
 ═══════════════════════════════════════ */
 function initCustomCursor() {
-  /* Solo en desktop */
   if (window.matchMedia('(max-width: 700px)').matches) return;
 
-  const dot = document.createElement('div');
+  const dot  = document.createElement('div');
   const ring = document.createElement('div');
-  dot.className = 'cursor-dot';
+  dot.className  = 'cursor-dot';
   ring.className = 'cursor-ring';
   document.body.append(dot, ring);
 
@@ -262,20 +227,18 @@ function initCustomCursor() {
     mx = e.clientX;
     my = e.clientY;
     dot.style.left = mx + 'px';
-    dot.style.top = my + 'px';
+    dot.style.top  = my + 'px';
   });
 
-  /* Suavizado del ring */
   function animRing() {
     rx += (mx - rx) * 0.14;
     ry += (my - ry) * 0.14;
     ring.style.left = rx + 'px';
-    ring.style.top = ry + 'px';
+    ring.style.top  = ry + 'px';
     requestAnimationFrame(animRing);
   }
   animRing();
 
-  /* Hover en links y botones */
   document.querySelectorAll('a, button, .service-card, .benefit-item').forEach(el => {
     el.addEventListener('mouseenter', () => ring.classList.add('hover'));
     el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
@@ -283,7 +246,7 @@ function initCustomCursor() {
 }
 
 /* ═══════════════════════════════════════
-   3. NAVBAR — scroll shadow + active
+   3. NAVBAR — scroll shadow
 ═══════════════════════════════════════ */
 function initNavbar() {
   const header = document.querySelector('header');
@@ -305,9 +268,9 @@ function initMobileMenu() {
   btn.className = 'hamburger';
   btn.setAttribute('aria-label', 'Menú');
   btn.innerHTML = `
-  <img src="iconos/menu.png" alt="Menú">
-  <span class="close-icon">✕</span>
-`;
+    <img src="iconos/menu.png" alt="Menú">
+    <span class="close-icon">✕</span>
+  `;
   document.querySelector('nav').append(btn);
 
   btn.addEventListener('click', () => {
@@ -316,7 +279,6 @@ function initMobileMenu() {
     btn.setAttribute('aria-expanded', open);
   });
 
-  /* Cerrar al hacer clic en un link */
   nav.querySelectorAll('a').forEach(a => {
     a.addEventListener('click', () => {
       nav.classList.remove('open');
@@ -335,7 +297,6 @@ function initScrollReveal() {
 
   if (!elements.length) return;
 
-  /* Delay escalonado para grids */
   elements.forEach((el, i) => {
     if (el.closest('.services-grid, .benefits-grid, .about-stats')) {
       el.style.transitionDelay = `${(i % 6) * 0.1}s`;
@@ -347,10 +308,9 @@ function initScrollReveal() {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
-          /* Agregar clase reveal si no la tiene */
           if (!entry.target.classList.contains('reveal') &&
-            !entry.target.classList.contains('reveal-left') &&
-            !entry.target.classList.contains('reveal-right')) {
+              !entry.target.classList.contains('reveal-left') &&
+              !entry.target.classList.contains('reveal-right')) {
             entry.target.style.opacity = '1';
             entry.target.style.transform = 'none';
           }
@@ -362,10 +322,9 @@ function initScrollReveal() {
   );
 
   elements.forEach(el => {
-    /* Si no tiene clase reveal, aplicar estilos base */
     if (!el.classList.contains('reveal') &&
-      !el.classList.contains('reveal-left') &&
-      !el.classList.contains('reveal-right')) {
+        !el.classList.contains('reveal-left') &&
+        !el.classList.contains('reveal-right')) {
       el.style.opacity = '0';
       el.style.transform = 'translateY(30px)';
       el.style.transition = 'opacity 0.75s cubic-bezier(0.16,1,0.3,1), transform 0.75s cubic-bezier(0.16,1,0.3,1)';
@@ -396,17 +355,16 @@ function initCounters() {
 }
 
 function animateCount(el) {
-  const target = parseInt(el.dataset.target, 10);
-  const suffix = el.dataset.suffix || '';
+  const target   = parseInt(el.dataset.target, 10);
+  const suffix   = el.dataset.suffix || '';
   const duration = 1800;
-  const start = performance.now();
+  const start    = performance.now();
 
   function step(now) {
-    const elapsed = now - start;
+    const elapsed  = now - start;
     const progress = Math.min(elapsed / duration, 1);
-    /* easing ease-out quart */
-    const eased = 1 - Math.pow(1 - progress, 4);
-    const current = Math.round(eased * target);
+    const eased    = 1 - Math.pow(1 - progress, 4);
+    const current  = Math.round(eased * target);
     el.textContent = current + suffix;
     if (progress < 1) requestAnimationFrame(step);
   }
@@ -419,7 +377,7 @@ function animateCount(el) {
 ═══════════════════════════════════════ */
 function initActiveNav() {
   const sections = document.querySelectorAll('main section[id]');
-  const links = document.querySelectorAll('nav ul li a');
+  const links    = document.querySelectorAll('nav ul li a');
 
   if (!sections.length || !links.length) return;
 
@@ -449,9 +407,9 @@ document.addEventListener('click', e => {
   const btn = e.target.closest('.btn-primary, .btn-secondary');
   if (!btn) return;
 
-  const rect = btn.getBoundingClientRect();
+  const rect   = btn.getBoundingClientRect();
   const ripple = document.createElement('span');
-  const size = Math.max(rect.width, rect.height);
+  const size   = Math.max(rect.width, rect.height);
 
   ripple.style.cssText = `
     position: absolute;
@@ -481,19 +439,14 @@ document.addEventListener('click', e => {
   setTimeout(() => ripple.remove(), 600);
 });
 
-/* boton flotante de los tips del cuidado del carro */
-/* =======================================
-   TIPS FLOTANTE — agregar al final de script.js
-   (y en cada JS de página donde lo uses)
-======================================= */
-
+/* ═══════════════════════════════════════
+   9. PANEL DE TIPS POST-DETAILING
+═══════════════════════════════════════ */
 function initTipsPanel() {
 
-  /* ── Detectar ruta del ícono ── */
-  const depth = location.pathname.split('/').filter(Boolean).length;
+  const depth  = location.pathname.split('/').filter(Boolean).length;
   const prefix = depth >= 2 ? '../' : '';
 
-  /* ── HTML del botón flotante ── */
   const btn = document.createElement('button');
   btn.className = 'tips-float';
   btn.setAttribute('aria-label', 'Tips de cuidado');
@@ -502,7 +455,6 @@ function initTipsPanel() {
     <span>Tips de Cuidado</span>
   `;
 
-  /* ── HTML del panel ── */
   const panel = document.createElement('div');
   panel.className = 'tips-panel';
   panel.setAttribute('role', 'dialog');
@@ -510,9 +462,7 @@ function initTipsPanel() {
 
   panel.innerHTML = `
     <div class="tips-panel__header">
-      <span class="tips-panel__title">
-         Tips Post-Detailing
-      </span>
+      <span class="tips-panel__title">Tips Post-Detailing</span>
       <button class="tips-panel__close" aria-label="Cerrar">✕</button>
     </div>
 
@@ -525,9 +475,7 @@ function initTipsPanel() {
 
     <div class="tips-content">
 
-      <!-- General -->
       <div class="tips-category active" data-category="general">
-
         <div class="tip-card">
           <img class="tip-card__icon" src="${prefix}iconos/iconos_tips/clock.png" alt="">
           <div class="tip-card__body">
@@ -535,7 +483,6 @@ function initTipsPanel() {
             <p class="tip-card__desc">Evitá exponer el vehículo a lluvia, sol directo o polvo durante las primeras 24 horas.</p>
           </div>
         </div>
-
         <div class="tip-card">
           <img class="tip-card__icon" src="${prefix}iconos/iconos_tips/jabon.png" alt="">
           <div class="tip-card__body">
@@ -543,7 +490,6 @@ function initTipsPanel() {
             <p class="tip-card__desc">Usá siempre agua abundante y shampoo específico para carros. Nunca detergente de cocina.</p>
           </div>
         </div>
-
         <div class="tip-card">
           <img class="tip-card__icon" src="${prefix}iconos/iconos_tips/paño.png" alt="">
           <div class="tip-card__body">
@@ -551,7 +497,6 @@ function initTipsPanel() {
             <p class="tip-card__desc">Secá siempre con paños de microfibra limpia. Nunca tela áspera o esponjas viejas.</p>
           </div>
         </div>
-
         <div class="tip-card">
           <img class="tip-card__icon" src="${prefix}iconos/iconos_tips/parkin.png" alt="">
           <div class="tip-card__body">
@@ -559,12 +504,9 @@ function initTipsPanel() {
             <p class="tip-card__desc">Preferí sombra o garaje. El sol constante degrada la pintura y los tratamientos más rápido.</p>
           </div>
         </div>
-
       </div>
 
-      <!-- Cerámico -->
       <div class="tips-category" data-category="ceramico">
-
         <div class="tip-card">
           <img class="tip-card__icon" src="${prefix}iconos/iconos_tips/clock.png" alt="">
           <div class="tip-card__body">
@@ -572,7 +514,6 @@ function initTipsPanel() {
             <p class="tip-card__desc">El recubrimiento cerámico necesita al menos 72 horas para curar completamente. No lo lavés.</p>
           </div>
         </div>
-
         <div class="tip-card">
           <img class="tip-card__icon" src="${prefix}iconos/iconos_tips/cera.png" alt="">
           <div class="tip-card__body">
@@ -580,7 +521,6 @@ function initTipsPanel() {
             <p class="tip-card__desc">No apliqués cera sobre el cerámico. Usá solo mantenedores específicos para cerámica.</p>
           </div>
         </div>
-
         <div class="tip-card">
           <img class="tip-card__icon" src="${prefix}iconos/iconos_tips/lluvia.png" alt="">
           <div class="tip-card__body">
@@ -588,7 +528,6 @@ function initTipsPanel() {
             <p class="tip-card__desc">Después de lluvia, lavá el carro cuanto antes. El agua ácida puede manchar el cerámico.</p>
           </div>
         </div>
-
         <div class="tip-card">
           <img class="tip-card__icon" src="${prefix}iconos/iconos_tips/tiempo.png" alt="">
           <div class="tip-card__body">
@@ -596,12 +535,9 @@ function initTipsPanel() {
             <p class="tip-card__desc">Con buen mantenimiento el cerámico dura 1-3 años. Contactanos para reaplique cuando sea necesario.</p>
           </div>
         </div>
-
       </div>
 
-      <!-- Pulido -->
       <div class="tips-category" data-category="pulido">
-
         <div class="tip-card">
           <img class="tip-card__icon" src="${prefix}iconos/iconos_tips/protege.png" alt="">
           <div class="tip-card__body">
@@ -609,7 +545,6 @@ function initTipsPanel() {
             <p class="tip-card__desc">Aplicá una capa de cera o sellador cada 3-4 meses para mantener el brillo del pulido.</p>
           </div>
         </div>
-
         <div class="tip-card">
           <img class="tip-card__icon" src="${prefix}iconos/iconos_tips/lavado_auto.png" alt="">
           <div class="tip-card__body">
@@ -617,7 +552,6 @@ function initTipsPanel() {
             <p class="tip-card__desc">Los cepillos de lavados automáticos generan micro-rayones. Preferí lavado manual.</p>
           </div>
         </div>
-
         <div class="tip-card">
           <img class="tip-card__icon" src="${prefix}iconos/iconos_tips/paloma.png" alt="">
           <div class="tip-card__body">
@@ -625,12 +559,9 @@ function initTipsPanel() {
             <p class="tip-card__desc">Removelo cuanto antes. El ácido puede dañar el pulido si se deja mucho tiempo.</p>
           </div>
         </div>
-
       </div>
 
-      <!-- Interior -->
       <div class="tips-category" data-category="interior">
-
         <div class="tip-card">
           <img class="tip-card__icon" src="${prefix}iconos/iconos_tips/avanico.png" alt="">
           <div class="tip-card__body">
@@ -638,7 +569,6 @@ function initTipsPanel() {
             <p class="tip-card__desc">Después de la limpieza interior, ventilá bien el vehículo antes de usar para evitar olores.</p>
           </div>
         </div>
-
         <div class="tip-card">
           <img class="tip-card__icon" src="${prefix}iconos/iconos_tips/aspiradora.png" alt="">
           <div class="tip-card__body">
@@ -646,7 +576,6 @@ function initTipsPanel() {
             <p class="tip-card__desc">Aspirá el interior cada 2 semanas para evitar acumulación de polvo y suciedad.</p>
           </div>
         </div>
-
         <div class="tip-card">
           <img class="tip-card__icon" src="${prefix}iconos/iconos_tips/protege.png" alt="">
           <div class="tip-card__body">
@@ -654,7 +583,6 @@ function initTipsPanel() {
             <p class="tip-card__desc">Aplicá protector UV en el tablero cada mes para evitar que se agriete con el sol.</p>
           </div>
         </div>
-
         <div class="tip-card">
           <img class="tip-card__icon" src="${prefix}iconos/iconos_tips/tapete.png" alt="">
           <div class="tip-card__body">
@@ -662,7 +590,6 @@ function initTipsPanel() {
             <p class="tip-card__desc">Lavá los tapetes por separado cada 2 semanas. Dejá secar completamente antes de poner en el carro.</p>
           </div>
         </div>
-
       </div>
 
     </div>
@@ -674,7 +601,6 @@ function initTipsPanel() {
 
   document.body.append(btn, panel);
 
-  /* ── Lógica de apertura/cierre ── */
   btn.addEventListener('click', () => {
     panel.classList.toggle('open');
   });
@@ -683,14 +609,12 @@ function initTipsPanel() {
     panel.classList.remove('open');
   });
 
-  /* Cerrar al clic fuera */
   document.addEventListener('click', e => {
     if (!panel.contains(e.target) && e.target !== btn && !btn.contains(e.target)) {
       panel.classList.remove('open');
     }
   });
 
-  /* ── Tabs ── */
   panel.querySelectorAll('.tips-tab').forEach(tab => {
     tab.addEventListener('click', () => {
       panel.querySelectorAll('.tips-tab').forEach(t => t.classList.remove('active'));
@@ -700,13 +624,9 @@ function initTipsPanel() {
     });
   });
 
-  /* ── Cursor hover ── */
   const ring = document.querySelector('.cursor-ring');
   if (ring) {
     btn.addEventListener('mouseenter', () => ring.classList.add('hover'));
     btn.addEventListener('mouseleave', () => ring.classList.remove('hover'));
   }
 }
-
-/* Llamar la función */
-document.addEventListener('DOMContentLoaded', initTipsPanel);
