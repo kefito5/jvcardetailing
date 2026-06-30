@@ -398,7 +398,7 @@ function initForm() {
       `*Vehiculo:*\n` +
       `  • Marca: ${marca}\n` +
       `  • Modelo: ${modelo}\n` +
-      `  • Anio: ${anio}\n` +
+      `  • A\u00F1o: ${anio}\n` +
       `  • Color: ${color}\n\n` +
       `*Servicios solicitados:*\n  • ${servicios.replace(/, /g, '\n  • ')}\n\n` +
       `*Notas:* ${notas}`;
